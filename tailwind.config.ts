@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+        highlight: {
+          DEFAULT: '#FFEB3B80', // Semi-transparent yellow for PDF highlights
+          text: '#1F2937',     // Dark text
+          border: '#FFCC00',   // Border for highlights
+        },
+        chatpanel: {
+          DEFAULT: '#F8F9FA', // Light gray for chat panel
+          border: '#E5E7EB',  // Border for chat panel
+        }
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,13 +94,23 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+        'highlight-pulse': {
+          '0%, 100%': { 
+            opacity: '0.5' 
+          },
+          '50%': { 
+            opacity: '0.7'
+          }
+        }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+        'highlight-pulse': 'highlight-pulse 2s ease-in-out infinite',
 			}
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+
