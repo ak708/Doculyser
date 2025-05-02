@@ -4,9 +4,8 @@ import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import * as pdfjs from 'pdfjs-dist';
 
-// Initialize PDF.js worker
-const pdfjsWorker = await import('pdfjs-dist/build/pdf.worker.mjs');
-pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+// Import PDFjs worker separately without await
+import * as pdfjsWorker from 'pdfjs-dist/build/pdf.worker.mjs';
 
 interface BoundingBox {
   x: number;
@@ -23,6 +22,13 @@ interface PDFViewerProps {
   targetPageNumber?: number;
 }
 
+// Initialize PDF.js worker inside the component
+const initPdfWorker = () => {
+  if (!pdfjs.GlobalWorkerOptions.workerSrc) {
+    pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+  }
+};
+
 const PDFViewer: React.FC<PDFViewerProps> = ({ 
   file, 
   currentHighlights = [], 
@@ -35,6 +41,11 @@ const PDFViewer: React.FC<PDFViewerProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  
+  // Initialize worker when component mounts
+  useEffect(() => {
+    initPdfWorker();
+  }, []);
 
   // Load PDF when file changes
   useEffect(() => {
