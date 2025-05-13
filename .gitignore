@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+pdf-canvas/pdf-web/myenv
+pdf-canvas/pdf-web/Scripts
+pdf-canvas/pdf-web/output_images
+pdf-canvas/pdf-web/public
+pdf-canvas/pdf-web/node_modules
+pdf-canvas/pdf-web/Lib
+pdf-canvas/pdf-web/Include
